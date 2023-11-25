@@ -1,9 +1,14 @@
 <template>
-  <header>
-    <nav>
-      <ul>
-        <li><NuxtLink to="/login">Login</NuxtLink></li>
-      </ul>
-    </nav>
-  </header>
-</template>
+    <header>
+      <nav>
+        <ul>
+          <li><NuxtLink to="/login">Login</NuxtLink></li>
+        </ul>
+      </nav>
+    </header>
+  </template>
+  <script setup>
+  definePageMeta({
+    layout: 'default',
+  })
+  </script>

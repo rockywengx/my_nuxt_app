@@ -1,7 +1,7 @@
 import { useUserStore } from "@/stores/userStore";
+import { ElMessage } from "element-plus";
 // wrap useFetch with configuration needed to talk to our API
 export const fetchData = async (method, path, options) => {
-  //   const setAlertObj = inject('setAlertObj')
   // modify options as needed
   const config = useRuntimeConfig();
   options = {
@@ -51,37 +51,32 @@ export const fetchData = async (method, path, options) => {
       switch (_ctx.error.value.statusCode) {
         case 401:
         case 403:
-          setAlertObj({
-            show: true,
-            title: "請先登入",
+          ElMessage({
+            message: "請先登入",
             type: "error",
           });
           break;
         case 404:
-          setAlertObj({
-            show: true,
-            title: "找不到資源",
+          ElMessage({
+            message: "找不到資源",
             type: "error",
           });
           break;
         case 422:
-          setAlertObj({
-            show: true,
-            title: "驗證錯誤",
+          ElMessage({
+            message: "驗證錯誤",
             type: "error",
           });
           break;
         case 423:
-          setAlertObj({
-            show: true,
-            title: "請勿操作太過頻繁",
+          ElMessage({
+            message: "請勿操作太過頻繁",
             type: "error",
           });
           break;
         case 400:
-          setAlertObj({
-            show: true,
-            title: _ctx.error.value,
+          ElMessage({
+            message: _ctx.error.value,
             type: "error",
           });
           break;
@@ -93,11 +88,11 @@ export const fetchData = async (method, path, options) => {
       return _ctx;
     }
   };
-  const _ctx = useFetch(path, options);
+  const _ctx = await useFetch(path, options);
   return responseErrorHandle(_ctx);
 };
 
-export const get = async (path, data, options) => fetchData("GET", path, { ...options, params: data });
-export const post = async (path, data, options) => fetchData("POST", path, { ...options, body: data });
-export const put = async (path, data, options) => fetchData("PUT", path, { ...options, body: data });
-export const del = async (path, data, options) => fetchData("DELETE", path, { ...options, body: data });
+export const get = async (path, data, options) => await fetchData("GET", path, { ...options, params: data });
+export const post = async (path, data, options) => await fetchData("POST", path, { ...options, body: data });
+export const put = async (path, data, options) => await fetchData("PUT", path, { ...options, body: data });
+export const del = async (path, data, options) => await fetchData("DELETE", path, { ...options, body: data });

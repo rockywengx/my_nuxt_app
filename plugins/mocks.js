@@ -1,9 +1,12 @@
 import { worker } from "../mocks/browser";
 
-export default defineNuxtPlugin((nuxtApp) => {
-  // Doing something with nuxtApp
-  const config = useRuntimeConfig();
-  if (config.app.debugMode === "true") {
-    worker.start();
-  }
+export default defineNuxtPlugin({
+  name: "mocks",
+  enforce: 'pre', // or 'post'
+  async setup() {
+    const config = useRuntimeConfig();
+    if (config.app.mockApi === "true") {
+      worker.start();
+    }
+  },
 });
