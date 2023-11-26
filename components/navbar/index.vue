@@ -13,7 +13,7 @@ export default {
     data() {
         return {
             menuItems: [
-                { id: 1, label: '首頁', url: '/' },
+                { id: 1, label: '首頁', url: '/store' },
                 { id: 2, label: '關於我們', url: '/about' },
                 { id: 3, label: '產品', url: '/products' },
                 { id: 4, label: '聯絡我們', url: '/contact' }

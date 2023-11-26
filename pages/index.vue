@@ -1,14 +1,8 @@
 <template>
-    <header>
-      <nav>
-        <ul>
-          <li><NuxtLink to="/login">Login</NuxtLink></li>
-        </ul>
-      </nav>
-    </header>
-  </template>
-  <script setup>
-  definePageMeta({
-    layout: 'default',
-  })
-  </script>
+  歡迎使用本系統，本頁是載入頁面，請稍後...
+</template>
+<script setup>
+setTimeout(() => {
+  navigateTo('/store')
+}, 1000)
+</script>

@@ -28,8 +28,8 @@ const form = ref({
     password: ''
 })
 let userStore = useUserStore()
-const login = () => {
-    userStore.login(form.value.account, form.value.password)
+const login = async () => {
+    await userStore.login(form.value.account, form.value.password)
     if(userStore.token){
         navigateTo('/store')
     }
