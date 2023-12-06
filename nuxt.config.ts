@@ -4,12 +4,14 @@ export default defineNuxtConfig({
   ssr: false,
   elementPlus: {
     importStyle: 'scss',
-    icon: false
+    // icon: true
   },
   modules: [
     // ...
     "@pinia/nuxt",
     "@element-plus/nuxt",
+    'nuxt-icon'
+
   ],
   pinia: {
     storesDirs: ["./stores/**"],
@@ -23,4 +25,13 @@ export default defineNuxtConfig({
       apiUrl: process.env.NUXT_API_URL,
     },
   },
+  vite: {
+    css: {
+      preprocessorOptions: {
+        scss: {
+          additionalData: '@use "@/assets/css/style.scss" as *;'
+        }
+      }
+    }
+  }
 });
