@@ -31,7 +31,7 @@
                 </el-form-item>
                 <el-form-item>
                     <el-button-group>
-                        <el-button type="warning">
+                        <el-button type="warning" v-on:click="putCart">
                             <el-icon :size="20" class="px-2">
                                 <ElIconShoppingCart />
                             </el-icon>
@@ -65,7 +65,10 @@ definePageMeta({
 
 import { onMounted, ref } from 'vue'
 import { useCommodityStore } from '@/stores/commodityStore';
+import { useCartStore } from '@/stores/cartStore';
+
 const commodityStore = useCommodityStore();
+const cartStore = useCartStore();
 const route = useRoute();
 
 const item = ref({});
@@ -78,6 +81,11 @@ const load = async () => {
 
 const handleTagClick = (tab, event) => {
     console.log(tab);
+}
+
+const putCart = async () => {
+    await cartStore.putItem(item.value, quantity.value);
+    navigateTo('/cart');
 }
 
 onMounted(async () => {

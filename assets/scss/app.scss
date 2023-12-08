@@ -1,0 +1,76 @@
+@media screen and (min-width: 576px){
+  :root {
+      --el-main-padding: 0px;
+  }
+
+  .w-25 {
+    width: 25%;
+  }
+  .w-50 {
+    width: 50%;
+  }
+  .w-75 {
+    width: 75%;
+  }
+  .w-100 {
+    width: 100%;
+  }
+  .flex-row {
+    flex-direction: row;
+  }
+  .flex-col {
+    flex-direction: column;
+  }
+  .flex-row-reverse {
+    flex-direction: row-reverse;
+  }
+  .flex-col-reverse {
+    flex-direction: column-reverse;
+  }
+  .text-xs {
+    font-size: 0.75rem !important;
+  }
+  .text-sm {
+    font-size: 0.875rem !important;
+  }
+  .text-md {
+    font-size: 1rem !important;
+  }
+  .text-lg {
+    font-size: 1.125rem !important;
+  }
+  .text-xl {
+    font-size: 1.25rem !important;
+  }
+  .items-start {
+    align-items: flex-start;
+  }
+  .items-center {
+    align-items: center;
+  }
+  .items-end {
+    align-items: flex-end;
+  }
+  .items-baseline {
+    align-items: baseline;
+  }
+  .items-stretch {
+    align-items: stretch;
+  }
+  .justify-start {
+    justify-content: flex-start;
+  }
+  .justify-center {
+    justify-content: center;
+  }
+  .justify-end {
+    justify-content: flex-end;
+  }
+  .justify-between {
+    justify-content: space-between;
+  }
+  .justify-around {
+    justify-content: space-around;
+  }
+    
+}

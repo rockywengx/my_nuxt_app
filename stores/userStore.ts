@@ -6,28 +6,28 @@ export const useUserStore = defineStore("user", {
     const userState = get12HoursCookies("userState");
     if (userState.value && (userState.value as any).token) {
       return ({
-        _token: (userState.value as any).token,
-        _name: (userState.value as any).name,
-        _avatar: (userState.value as any).avatar,
-        _user: userState.value,
+        token: (userState.value as any).token,
+        name: (userState.value as any).name,
+        avatar: (userState.value as any).avatar,
+        user: userState.value,
       })
     }
     return ({
-    _token: "",
-    _name: "",
-    _avatar: "",
-    _user: {},
+    token: "",
+    name: "",
+    avatar: "",
+    user: {},
   })},
   actions: {
     // 定義action
     setAvatar(avatar: string) {
-      this._avatar = avatar;
+      this.avatar = avatar;
     },
     setUser(user: any) {
-      this._user = user;
-      this._name = user.name;
-      this._token = user.token;
-      this._avatar = user.avatar;
+      this.user = user;
+      this.name = user.name;
+      this.token = user.token;
+      this.avatar = user.avatar;
     },
     async login(account: string, password: string) {
       // 這裡是登入的邏輯
@@ -42,32 +42,13 @@ export const useUserStore = defineStore("user", {
       const cookie = get12HoursCookies("userState");
       cookie.value = {};
       this.setUser({
-        _token: "",
-        _name: "",
-        _avatar: "",
-        _user: {},
+        token: "",
+        name: "",
+        avatar: "",
+        user: {},
       });
     }
   },
   getters: {
-    // 定義getter
-    token(): string {
-      // const userState = get12HoursCookies("userState");
-      // let $token = this._token;
-      // if (userState.value && (userState.value as any).token) {
-      //   $token = (userState.value as any).token;
-      // }
-      // return $token;
-      return this._token;
-    },
-    name(): string {
-      return this._name;
-    },
-    avatar(): string {
-      return this._avatar;
-    },
-    user(): any {
-      return this._user;
-    },
   },
 });

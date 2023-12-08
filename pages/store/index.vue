@@ -33,7 +33,6 @@ const pagination = computed(() => commodityStore.pagination);
 const loadData = async () => await commodityStore.load();
 const loadMore = async () => await commodityStore.loadMore();
 const goDetail = (item) => {
-  console.log(item);
   navigateTo(`/store/${item.id}`);
 }
 onMounted(async () => {
