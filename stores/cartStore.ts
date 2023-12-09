@@ -1,9 +1,11 @@
 import { defineStore } from "pinia";
+import { get12HoursCookies } from "@/utils/cookies";
+import { saveCart, putItem } from "@/apis/cartApi";
+
 export const useCartStore = defineStore("cart", {
   state: () => {
     const cartState = get12HoursCookies("cartState");
     if (cartState.value && (cartState.value as any).items) {
-      console.log(cartState.value);
       return {
         items: (cartState.value as any).items,
       };
@@ -15,17 +17,9 @@ export const useCartStore = defineStore("cart", {
   actions: {
     // 定義action
     async putItem(item: any, quantity: number) {
-      if (this.items.length > 0) {
-        this.items.forEach((element: any) => {
-          if (element.id === item.id) {
-            element.quantity += quantity;
-            return;
-          }
-        });
-      } else {
-        item.quantity = quantity;
-        this.items.push(item);
-      }
+      item.quantity = quantity;
+      let response = await putItem(item);
+      this.items = response.items;
       const cookie = get12HoursCookies("cartState");
       cookie.value = { items: this.items };
     },
@@ -53,8 +47,15 @@ export const useCartStore = defineStore("cart", {
       const cookie = get12HoursCookies("cartState");
       cookie.value = { items: this.items };
     },
+    async saveCart() {
+
+
+    }
   },
   getters: {
     // 定義getter
+    getItems(): any {
+      return this.items;
+    },
   },
 });

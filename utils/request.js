@@ -21,30 +21,32 @@ export const fetchData = async (method, path, options) => {
     });
   }
 
-  function objectToFormData(obj, formData, parentKey = "") {
-    for (const key in obj) {
-      if (Object.prototype.hasOwnProperty.call(obj, key)) {
-        const value = obj[key];
-        const newKey = parentKey ? `${parentKey}[${key}]` : key;
+  // function objectToFormData(obj, formData, parentKey = "") {
+  //   for (const key in obj) {
+  //     if (Object.prototype.hasOwnProperty.call(obj, key)) {
+  //       const value = obj[key];
+  //       const newKey = parentKey ? `${parentKey}[${key}]` : key;
 
-        if (Array.isArray(value)) {
-          value.forEach((item, index) => {
-            objectToFormData(item, formData, `${newKey}[${index}]`);
-          });
-        } else if (typeof value === "object" && value !== null) {
-          objectToFormData(value, formData, newKey);
-        } else {
-          formData.append(newKey, value);
-        }
-      }
-    }
-  }
+  //       if (Array.isArray(value)) {
+  //         value.forEach((item, index) => {
+  //           objectToFormData(item, formData, `${newKey}[${index}]`);
+  //         });
+  //       } else if (typeof value === "object" && value !== null) {
+  //         objectToFormData(value, formData, newKey);
+  //       } else {
+  //         formData.append(newKey, value);
+  //       }
+  //     }
+  //   }
+  // }
 
-  const formData = new FormData();
-  if (options.body) {
-    objectToFormData(options.body, formData);
-    options.body = formData;
-  }
+  // const formData = new FormData();
+  // if (options.body) {
+  //   console.log(options.body)
+  //   objectToFormData(options.body, formData);
+  //   console.log(formData)
+  //   options.body = formData;
+  // }
 
   const responseErrorHandle = (_ctx) => {
     if (_ctx.status.value === "error") {

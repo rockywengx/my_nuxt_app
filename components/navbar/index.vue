@@ -4,12 +4,18 @@
             <el-col :span="6" class="left-menu">
                 <el-link class="menu" href="/" :underline="false">首頁</el-link>
             </el-col>
+            {{items}}
             <el-col :span="18" class="rigth-menu">
                 <el-breadcrumb separator="|">
-                    <el-breadcrumb-item class="menu" :to="{ path: item.url }" v-for="item in menuItems"
-                        :key="item.id" :index="item.id"
-                        >
-                        {{ item.label }}
+                    <el-breadcrumb-item class="menu" :to="{ path: item.url }" v-for="item in menuItems" :key="item.id"
+                        :index="item.id">
+                        <div class="icon-with-dot">
+                            <el-icon>
+                                <component :is="item.icon" />
+                            </el-icon>
+                            {{ item.label }}
+                            <span class="dot" v-if="item.dot === true"></span>
+                        </div>
                     </el-breadcrumb-item>
                 </el-breadcrumb>
             </el-col>
@@ -17,18 +23,30 @@
     </div>
 </template>
 
-<script>
-export default {
-    data() {
-        return {
-            menuItems: [
-                { id: 1, label: '關於我們', url: '/about' },
-                { id: 2, label: '產品', url: '/products' },
-                { id: 3, label: '聯絡我們', url: '/contact' }
-            ]
-        };
+<script setup>
+import { useCartStore } from '@/stores/cartStore';
+
+const cartStore = useCartStore();
+const hasCartItems = computed(() => {
+    return cartStore.getItems.length > 0;
+})
+const hasNotification = computed(() => {
+    return false;
+})
+const menuItems = ref([
+    {
+        id: 1, label: '購物車', url: '/cart', icon: ElIconShoppingCart,
+        dot: hasCartItems
+    },
+    {
+        id: 2, label: '通知', url: '/notification', icon: ElIconBell,
+        dot: hasNotification
+    },
+    {
+        id: 3, label: '登出', url: '/logout', icon: ElIconSwitchButton,
+        dot: false
     }
-};
+]);
 </script>
 
 <style scoped lang="scss">
@@ -57,9 +75,22 @@ export default {
     font-weight: bold;
     color: var(--el-text-color-primary);
 
-    .menu:last-child.el-breadcrumb__inner.is-link{
+    .menu:last-child.el-breadcrumb__inner.is-link {
         color: var(--el-text-color-primary);
     }
 }
 
+.icon-with-dot {
+    position: relative;
+}
+
+.icon-with-dot .dot {
+    position: absolute;
+    top: 0;
+    left: -1;
+    width: 10px;
+    height: 10px;
+    border-radius: 50%;
+    background-color: var(--el-color-warning);
+}
 </style>

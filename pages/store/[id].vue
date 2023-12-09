@@ -22,10 +22,8 @@
                     <font class="item-new-price">{{ item.newPrice }}</font>
                 </el-form-item>
                 <ElDivider />
-                <el-form-item label="規格:">
-                </el-form-item>
-                <el-form-item label="型號:">
-                </el-form-item>
+                <el-form-item label="規格:"> </el-form-item>
+                <el-form-item label="型號:"> </el-form-item>
                 <el-form-item>
                     <el-input-number v-model="quantity" :min="1" :max="10" @change="handleChange" />
                 </el-form-item>
@@ -85,7 +83,17 @@ const handleTagClick = (tab, event) => {
 
 const putCart = async () => {
     await cartStore.putItem(item.value, quantity.value);
-    navigateTo('/cart');
+    ElMessageBox({
+        type: 'success',
+        message: () =>
+            h('p', null, [
+                h(ElIconCircleCheckFilled, { style: 'color: var(--el-color-warning)'}, null),
+                h('span', {style: 'font-size: 24px'}, '已加入購物車'),
+            ])
+        ,
+        center: true,
+    });
+    // navigateTo('/cart');
 }
 
 onMounted(async () => {
@@ -164,4 +172,5 @@ p {
     margin-left: 10px;
     font-weight: normal;
     font-size: xx-large;
-}</style>
+}
+</style>
