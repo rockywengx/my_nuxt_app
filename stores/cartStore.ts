@@ -48,9 +48,20 @@ export const useCartStore = defineStore("cart", {
       cookie.value = { items: this.items };
     },
     async saveCart() {
-
-
-    }
+      console.log('saveCart', this.items)
+    },
+    exists(item: any): boolean {
+      let exists = false;
+      if (this.items.length > 0) {
+        this.items.forEach((element: any) => {
+          if (element.id === item.id) {
+            exists = true;
+            return;
+          }
+        });
+      }
+      return exists;
+    },
   },
   getters: {
     // 定義getter

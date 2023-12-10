@@ -35,6 +35,27 @@ const updateItem = (item) => {
     cartStore.setQuantity(item, item.quantity);
 }
 
+onMounted(() => {
+  window.addEventListener('beforeunload', async (event) => {
+    // 離開前更新購物車
+    await cartStore.saveCart()
+    event.preventDefault()
+    event.returnValue = ''
+  })
+
+  // 每分鐘更新購物車
+  setInterval(async () => {
+    await cartStore.saveCart()
+  }, 1000 * 60 * 1)
+})
+
+onBeforeUnmount(() => {
+  window.removeEventListener('beforeunload', (event) => {
+    event.preventDefault()
+    event.returnValue = ''
+  })
+})
+
 </script>
 
 <style scoped>

@@ -29,13 +29,13 @@
                 </el-form-item>
                 <el-form-item>
                     <el-button-group>
-                        <el-button type="warning" v-on:click="putCart">
+                        <el-button type="warning" v-on:click="putCart" :disabled="existsInCart">
                             <el-icon :size="20" class="px-2">
                                 <ElIconShoppingCart />
                             </el-icon>
-                            加入購物車
+                            {{ existsInCart ?  "已加入購物車" : "加入購物車" }}
                         </el-button>
-                        <el-button type="danger">
+                        <el-button type="danger" :disabled="existsInCart">
                             直接購買
                             <el-icon :size="20" class="px-2">
                                 <ElIconShoppingBag />
@@ -81,23 +81,25 @@ const handleTagClick = (tab, event) => {
     console.log(tab);
 }
 
+
 const putCart = async () => {
     await cartStore.putItem(item.value, quantity.value);
     ElMessageBox({
         type: 'success',
         message: () =>
             h('p', null, [
-                h(ElIconCircleCheckFilled, { style: 'color: var(--el-color-warning)'}, null),
-                h('span', {style: 'font-size: 24px'}, '已加入購物車'),
+                h(ElIconCircleCheckFilled, { style: 'color: var(--el-color-warning)' }, null),
+                h('span', { style: 'font-size: 24px' }, '已加入購物車'),
             ])
         ,
         center: true,
     });
     // navigateTo('/cart');
 }
-
+const existsInCart = ref(false);
 onMounted(async () => {
     await load();
+    existsInCart.value = await cartStore.exists(item.value);
 })
 </script>
 <style scoped lang="scss">

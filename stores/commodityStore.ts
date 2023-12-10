@@ -28,7 +28,6 @@ export const useCommodityStore = defineStore("commodities", {
     },
     async find(id: number) {
       let result = await findItem(id);
-      console.log(result);
       return result;
     }
   },
